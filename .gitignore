@@ -42,3 +42,6 @@ next-env.d.ts
 
 # configuração local do editor/assistente
 /.claude/
+AGENT.md
+CLAUDE.md
+
