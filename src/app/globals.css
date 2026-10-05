@@ -1,0 +1,9 @@
+/*
+ * Tailwind sem o preflight: o reset do Tailwind mudaria listas, títulos e botões.
+ * A base visual é o CSS do site original (src/styles/tania.css), na camada "components",
+ * importado no layout.tsx junto com new-moon.css e extras.css. Utilitários do Tailwind
+ * continuam disponíveis e têm prioridade sobre ela.
+ */
+@layer theme, base, components, utilities;
+@import 'tailwindcss/theme.css' layer(theme);
+@import 'tailwindcss/utilities.css' layer(utilities);

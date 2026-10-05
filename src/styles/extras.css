@@ -1,0 +1,88 @@
+/* Ajustes deste projeto que não existem no CSS original */
+
+@layer components {
+/* Pixel art: mantém os pixels nítidos ao redimensionar */
+img[src$='.svg'] {
+  image-rendering: pixelated;
+}
+
+/* Linhas de código geradas pelo rehype-prism-plus */
+pre[class*='language-'] .code-line {
+  display: inline;
+}
+
+pre[class*='language-'] .highlight-line {
+  display: block;
+}
+
+/* Ícone de âncora dos títulos dos posts */
+a.anchor.before {
+  position: absolute;
+  transform: translateX(-100%);
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+
+h2,
+h3,
+h4 {
+  position: relative;
+}
+
+h2:hover > a.anchor,
+h3:hover > a.anchor,
+h4:hover > a.anchor,
+a.anchor:focus-visible {
+  opacity: 1;
+}
+
+/* O tooltip do último botão da barra lateral fica alinhado à direita para não vazar da sidebar */
+.sidebar-title-link .tooltip-container:last-child .tooltip {
+  left: auto;
+  right: 0;
+  transform: none;
+
+  &::after {
+    left: auto;
+    right: 15px;
+    margin-left: 0;
+  }
+}
+
+/* Itens de estante sem link (ex.: Conhecimentos): mesmo visual do a.post, sem efeito de hover */
+.shelf div.post {
+  display: flex;
+  align-items: baseline;
+  width: fit-content;
+  margin-bottom: 0.75rem;
+  color: var(--color-text-emphasized);
+  break-inside: avoid;
+
+  > div {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-weight: 500;
+  }
+
+  img {
+    width: 25px;
+    height: 25px;
+    object-fit: contain;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  .shelf div.post {
+    margin-bottom: 0;
+    margin-inline: -0.625rem;
+    padding: 5px 0.625rem;
+  }
+}
+
+/* Ícones SVG inline dentro dos botões do rodapé */
+.footer-menu-buttons .button svg {
+  width: 16px;
+  height: 16px;
+}
+}
