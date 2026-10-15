@@ -37,7 +37,7 @@ export default async function Index() {
                 <span className="era-dates">2021&ndash;2022</span>
                 <span>
                   <Link href="/resume">Estagiário de TI</Link> na Prefeitura de Senador Canedo: atendimento, apoio à
-                  programação de sistemas, cabeamento de redes e manutenção de computadores.
+                  programação de sistemas, manutenção de computadores e servidores, e suporte a usuários.
                 </span>
               </li>
               <li>
@@ -50,15 +50,13 @@ export default async function Index() {
               <li>
                 <span className="era-dates">2023&ndash;hoje</span>
                 <span>
-                  <Link href="/resume">Desenvolvedor</Link> web e mobile na Prefeitura de Senador Canedo, criando
-                  soluções como o <Link href="/dashglpi">Plugin GLPI (DashGLPI)</Link>. Certificados{' '}
-                  <Link href="/shelves#certificados">Google AI e Google UX Design</Link>, e{' '}
-                  <Link href="/blog">{posts.length} posts</Link> contando tudo.
+                  <Link href="/resume">Desenvolvedor</Link> Web na Prefeitura de Senador Canedo, criando
+                  soluções como o <Link href="/dashglpi">Plugin GLPI (DashGLPI)</Link>.
                 </span>
               </li>
             </ul>
             <p className="hero-description">
-              <Link href="/me">Também</Link>: interessado em IA aplicada à gestão pública e em UX Design.
+              <Link href="/me">Também</Link>: interessado em automações com inteligência artificial aplicada à gestão pública e em UX Design.
             </p>
           </div>
           <div className="hero-image-container">
@@ -70,10 +68,10 @@ export default async function Index() {
         </div>
       </Hero>
 
-      <section className="section-index">
+      {/* <section className="section-index">
         <Heading title="Últimos" slug="/blog" buttonText="Todos os posts" />
         <Posts data={latest} detailed />
-      </section>
+      </section> */}
 
       <section className="section-index">
         <Heading
@@ -97,7 +95,7 @@ export default async function Index() {
         </div>
       </section>
 
-      <section className="section-index">
+      {/* <section className="section-index">
         <Heading title="Séries" description="Alguns assuntos renderam vários capítulos." />
         <div className="posts">
           {seriesList.map((series) => (
@@ -113,7 +111,7 @@ export default async function Index() {
             />
           ))}
         </div>
-      </section>
+      </section> */}
 
       <section>
         <Heading

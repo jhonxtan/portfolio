@@ -16,7 +16,7 @@ export const shelvesList: Shelf[] = [
   {
     title: 'Certificados',
     description:
-      'Certificados de cursos que concluí em plataformas como Coursera, Alura, DIO e outras.',
+      'Certificados de cursos que concluí.',
     links: [
       {
         title: 'Google UX Design',

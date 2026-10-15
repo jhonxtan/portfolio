@@ -5,7 +5,7 @@ description: Quem sou eu e o que faço.
 
 Oi! Eu sou o **Jhonatan Vinicius**, desenvolvedor web JavaScript em Senador Canedo, Goiás.
 
-Trabalho na **Prefeitura de Senador Canedo** desde 2021. Comecei como estagiário de TI, passei pelo suporte técnico e, desde 2023, atuo como **desenvolvedor web e mobile**, criando soluções como o [DashGLPI](/dashglpi), um plugin de dashboard para o GLPI 11. Em paralelo, curso **Ciência da Computação** na PUC Goiás.
+Trabalho na **Prefeitura de Senador Canedo** desde 2021. Comecei como estagiário de TI, passei pelo suporte técnico e, desde 2023, atuo como **desenvolvedor web**, criando soluções como o [DashGLPI](/dashglpi), um plugin de dashboard para o GLPI 11. Em paralelo, curso **Ciência da Computação** na PUC Goiás.
 
 Gosto de desenvolver soluções alinhadas às necessidades de quem vai usá-las, e por isso fui estudar UX Design. Também me interesso por como a inteligência artificial pode ser aplicada de forma responsável e prática na gestão pública.
 

@@ -7,12 +7,11 @@ import { site } from '@/data/site'
 import { themeScript } from '@/lib/themeScript'
 import './globals.css'
 // Importados aqui (e não via @import no globals.css) para o Next recarregar ao editar
-import '@/styles/tania.css'
+import '@/styles/styles.css'
 import '@/styles/new-moon.css'
 import '@/styles/extras.css'
 
 const outfit = Outfit({ variable: '--font-outfit', subsets: ['latin'] })
-// adjustFontFallback: o Next ainda não tem métricas de fallback para essas duas fontes
 const googleSansFlex = Google_Sans_Flex({ variable: '--font-gsf', subsets: ['latin'], adjustFontFallback: false })
 const googleSansCode = Google_Sans_Code({ variable: '--font-gsc', subsets: ['latin'], adjustFontFallback: false })
 
