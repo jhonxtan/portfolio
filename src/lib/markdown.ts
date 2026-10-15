@@ -35,7 +35,7 @@ const linkIcon: Element = {
 function collectHeadings(headings: Heading[]) {
   return () => (tree: Root) => {
     visit(tree, 'element', (node) => {
-      const depth = { h2: 2, h3: 3 }[node.tagName]
+      const depth = { h2: 2, h3: 3 }[node.tagName as keyof { h2: number; h3: number }]
       if (depth && typeof node.properties.id === 'string') {
         headings.push({ depth, id: node.properties.id, text: toString(node) })
       }
