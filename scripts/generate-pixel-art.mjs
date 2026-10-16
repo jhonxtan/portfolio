@@ -689,6 +689,141 @@ const drawings = {
     cv.rect(17, 29, 7, 3, 'd')
     return cv
   },
+
+  // Mascote 2: Robô de automação - design limpo e icônico (24x24)
+  // Cabeça = CPU com cooler RGB | Corpo = Case/Chassis | Braços = Cabos | Pernas = PSU
+  // Tema: Automação = engrenagens girando, LEDs pulsando, dados fluindo
+  'mascot-2'() {
+    const cv = canvas(24, 24)
+
+    // ===== ANTENA WI-FI (topo) =====
+    cv.vline(11, 0, 1, 'k')
+    cv.vline(12, 0, 1, 'k')
+    cv.px(10, 0, 'c')
+    cv.px(13, 0, 'c')
+    cv.px(9, 1, 'c')
+    cv.px(14, 1, 'c')
+    cv.px(8, 2, 'c')
+    cv.px(15, 2, 'c')
+
+    // ===== CABEÇA = CPU COM COOLER RGB =====
+    // PCB base (marrom)
+    cv.rect(5, 3, 14, 8, 'M')
+    // Heatspreader (prateado)
+    cv.rect(6, 4, 12, 5, 'G')
+    // Cooler no topo do CPU (ventoinha central)
+    cv.rect(9, 3, 6, 2, 'K')
+    cv.hline(10, 13, 3, 'w') // grade do cooler
+    cv.hline(10, 13, 4, 'w')
+    // LED RGB no cooler (automação: pulsa)
+    cv.px(11, 3, 'r')
+    cv.px(12, 3, 'y')
+    cv.px(13, 3, 'c')
+
+    // Olhos = LEDs de status do CPU (expressivos)
+    cv.rect(8, 6, 2, 2, 'c')  // olho esquerdo - ciano
+    cv.rect(14, 6, 2, 2, 'c') // olho direito - ciano
+    // Brilho nos olhos
+    cv.px(8, 6, 'w')
+    cv.px(14, 6, 'w')
+
+    // Boca = barramento de dados (sorriso sutil)
+    cv.hline(10, 13, 9, 'y')
+    cv.px(9, 9, 'y')
+    cv.px(14, 9, 'y')
+
+    // ===== PESCOÇO = SLOT PCIe =====
+    cv.rect(10, 11, 4, 2, 'k')
+    cv.hline(11, 12, 11, 'y')
+    cv.hline(11, 12, 12, 'y')
+
+    // ===== CORPO = CASE/CHASSIS COM PAINEL DE VIDRO =====
+    // Estrutura do case (cinza escuro)
+    cv.rect(4, 13, 16, 8, 'K')
+    // Painel lateral de vidro temperado (transparente com reflexo)
+    cv.rect(5, 14, 10, 6, 'g')
+    cv.hline(6, 13, 14, 'w') // reflexo superior
+    cv.vline(6, 14, 18, 'w') // reflexo lateral
+
+    // Componentes visíveis dentro do case:
+    // GPU vertical (placa de vídeo) - lado direito
+    cv.rect(16, 15, 3, 5, 'K')
+    cv.rect(17, 16, 1, 3, 'G') // cooler da GPU
+    cv.px(17, 16, 'r') // LED GPU
+
+    // RAM (lado esquerdo, vertical)
+    cv.rect(5, 15, 2, 4, 'G')
+    cv.hline(5, 6, 16, 'w')
+    cv.hline(5, 6, 18, 'w')
+
+    // Motherboard (fundo)
+    cv.hline(5, 18, 19, 'd')
+    cv.hline(5, 19, 19, 'd')
+
+    // ===== ENGRENAGENS DE AUTOMAÇÃO (no painel de vidro) =====
+    // Engrenagem principal (centro)
+    cv.px(10, 16, 'y')
+    cv.px(9, 16, 'y')
+    cv.px(11, 16, 'y')
+    cv.px(10, 15, 'y')
+    cv.px(10, 17, 'y')
+    // Engrenagem menor (canto)
+    cv.px(13, 18, 'o')
+    cv.px(12, 18, 'o')
+    cv.px(14, 18, 'o')
+    cv.px(13, 17, 'o')
+    cv.px(13, 19, 'o')
+
+    // ===== BRAÇOS = CABOS FLEXÍVEIS (automação conectando) =====
+    // Braço esquerdo - cabo SATA/Data
+    cv.vline(2, 13, 18, 'y')
+    cv.vline(3, 13, 18, 'y')
+    cv.hline(1, 3, 13, 'y')
+    cv.hline(1, 3, 18, 'y')
+    cv.rect(0, 17, 2, 2, 'r') // conector SATA
+
+    // Braço direito - cabo PCIe Power
+    cv.vline(21, 13, 18, 'y')
+    cv.vline(22, 13, 18, 'y')
+    cv.hline(21, 23, 13, 'y')
+    cv.hline(21, 23, 18, 'y')
+    cv.rect(22, 17, 2, 2, 'O') // conector PCIe 8-pin
+
+    // ===== PERNAS = FONTE DE ALIMENTAÇÃO (PSU) =====
+    // PSU Esquerda
+    cv.rect(4, 21, 6, 3, 'K')
+    cv.rect(5, 21, 4, 1, 'G') // grade ventilação
+    cv.hline(6, 8, 21, 'w')
+    // PSU Direita
+    cv.rect(14, 21, 6, 3, 'K')
+    cv.rect(15, 21, 4, 1, 'G')
+    cv.hline(16, 18, 21, 'w')
+    // Conector 24-pin central (energia principal)
+    cv.rect(9, 20, 6, 1, 'w')
+    for (let x = 10; x <= 13; x++) cv.px(x, 20, 'k')
+
+    // ===== LEDs DE STATUS (automação: indicadores) =====
+    cv.px(6, 21, 'n')  // Power ON (verde)
+    cv.px(17, 21, 'y') // HDD Activity (amarelo)
+    cv.px(11, 22, 'c') // Network (ciano)
+    cv.px(12, 22, 'r') // CPU Load (vermelho)
+
+    // ===== DETALHES: SENSORES IoT =====
+    cv.rect(1, 10, 2, 2, 'T') // sensor temp
+    cv.rect(21, 10, 2, 2, 'T')
+    cv.px(1, 10, 'U')
+    cv.px(22, 10, 'U')
+
+    // ===== PARTÍCULAS DE DADOS FLUINDO (automação) =====
+    cv.px(0, 5, 'c')
+    cv.px(23, 6, 'c')
+    cv.px(0, 19, 'y')
+    cv.px(23, 20, 'y')
+    cv.px(2, 22, 'c')
+    cv.px(21, 22, 'c')
+
+    return cv
+  },
 }
 
 fs.mkdirSync(OUT, { recursive: true })
