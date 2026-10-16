@@ -1,0 +1,280 @@
+/*
+ * Tema "Pixel World": blocos, nuvens e céu estrelado inspirados nos jogos de plataforma 16-bit.
+ * O site tem um tema só: a fase noturna. A arte (estrelas, nuvens, moedas, blocos) vem de
+ * scripts/generate-pixel-art.mjs.
+ */
+
+@layer components {
+:root {
+  --outline: #05050d;
+  --pixel: 3px;
+  --pixel-shadow: 4px 4px 0 rgba(0, 0, 0, 0.7);
+  --pixel-shadow-hover: 6px 6px 0 rgba(0, 0, 0, 0.7);
+  --border-radius: 0;
+
+  --font-family-hud: var(--font-hud), var(--font-family-monospace2);
+
+  /* Noite azul-marinho */
+  --color-background: var(--gray-9);
+  --color-background-sidebar: var(--gray-10);
+  --color-background-navbar: var(--gray-10);
+  --color-background-card: var(--gray-8);
+  --color-background-navbar-link-hover: var(--gray-7);
+  --color-background-navbar-link-active: var(--color-primary);
+  --color-border-card: var(--outline);
+  --color-text-button-hover: var(--gray-12);
+}
+
+/* Fundo: céu estrelado com algumas nuvens discretas, preso à tela */
+body {
+  background-image:
+    url('/images/cloud.svg'), url('/images/cloud.svg'), url('/images/cloud.svg'), url('/images/cloud.svg'),
+    url('/images/night.svg');
+  background-size: 136px 72px, 102px 54px, 170px 90px, 102px 54px, 480px 480px;
+  background-position:
+    right 4% top 56px,
+    right 30% top 38%,
+    right 8% bottom 14%,
+    left 34% bottom 4%,
+    0 0;
+  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, repeat;
+  background-attachment: fixed;
+  image-rendering: pixelated;
+}
+
+/* Tipografia: títulos em fonte pixelada; HUD e nome do site em fonte de fliperama */
+h1,
+h2,
+h3,
+h4 {
+  letter-spacing: 0.01em;
+}
+
+h1 {
+  text-shadow: var(--pixel) var(--pixel) 0 #000;
+}
+
+.site-name,
+.hud-counter {
+  font-family: var(--font-family-hud) !important;
+  font-weight: 400 !important;
+}
+
+.sidebar-title-link .site-name,
+.navbar .site-name {
+  font-size: 11px;
+}
+
+/* Ano das conquistas como número de fase: fonte de fliperama, dígitos legíveis */
+.year h2 > div:first-child {
+  font-family: var(--font-family-hud);
+  font-weight: 400;
+  font-size: 20px;
+}
+
+/* Contador estilo HUD (página de conquistas) */
+.hud-counter {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0.5rem 0 0;
+  padding: 0.5rem 0.75rem;
+  font-size: 14px;
+  color: #fff;
+  background: var(--outline);
+  box-shadow: var(--pixel-shadow);
+
+  img {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+/* Barra lateral e barra superior: painéis com borda grossa */
+.sidebar {
+  border-right: 4px solid var(--outline);
+  overflow-x: hidden;
+}
+
+.navbar {
+  border-bottom: 4px solid var(--outline);
+}
+
+.sidebar-section {
+  border-bottom: 2px dashed var(--gray-7);
+}
+
+.sidebar-nav-links a.active,
+.navbar-menu.nav-items a.active {
+  color: var(--color-text-button-hover) !important;
+  background: var(--color-primary) !important;
+  outline: 2px solid var(--outline);
+}
+
+/* Menu do celular aberto: itens como blocos, ícones maiores */
+@media screen and (max-width: 899px) {
+  .navbar-menu.nav-items.active {
+    gap: 1rem;
+    border-top: 4px solid var(--outline);
+
+    a {
+      min-width: 220px;
+      padding: 0.75rem 1rem;
+      background: var(--color-background-card);
+      border: var(--pixel) solid var(--outline);
+      box-shadow: var(--pixel-shadow);
+    }
+
+    img {
+      width: 24px;
+      height: 24px;
+    }
+  }
+}
+
+/* Blocos: cards, conquistas, cartão do autor e navegação entre páginas */
+.card,
+a.post.detailed,
+.author-card,
+.post-navigation-link {
+  background: var(--color-background-card);
+  border: var(--pixel) solid var(--outline);
+  border-radius: 0;
+  box-shadow: var(--pixel-shadow);
+  transition:
+    transform 0.12s steps(2),
+    box-shadow 0.12s steps(2);
+}
+
+.posts:has(a.post.detailed) {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+a.post.detailed {
+  margin-inline: 0;
+  padding: 0.75rem 1rem;
+}
+
+a.card:hover,
+a.post.detailed:hover,
+a.post-navigation-link:hover {
+  border-color: var(--outline);
+  background: var(--color-background-card);
+  transform: translate(-2px, -2px);
+  box-shadow: var(--pixel-shadow-hover);
+}
+
+/* Ao passar o mouse, o ícone "pula" como um bloco atingido por baixo */
+@keyframes block-bump {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-6px);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a.post.detailed:hover .post-thumbnail img,
+  .heading:hover .heading-icon,
+  .sidebar-nav-links a:hover img {
+    animation: block-bump 0.3s steps(3);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  a.post.detailed,
+  .post-navigation-link {
+    transition: none;
+  }
+
+  a.card:hover,
+  a.post.detailed:hover,
+  a.post-navigation-link:hover {
+    transform: none;
+  }
+}
+
+/* Botões: bloco sólido com sombra dura; afundam ao clicar */
+.button {
+  border: var(--pixel) solid var(--outline);
+  box-shadow: 3px 3px 0 var(--outline);
+  background: var(--color-primary);
+  color: var(--color-text-button-hover);
+
+  &:hover {
+    border-color: var(--outline);
+    filter: brightness(1.1);
+  }
+
+  &:active {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 var(--outline);
+  }
+
+  &.secondary {
+    background: var(--color-background-card);
+    border-color: var(--outline);
+    color: var(--color-text-emphasized);
+
+    &:hover {
+      border-color: var(--outline);
+      color: var(--color-text-emphasized);
+      background: var(--color-background-navbar-link-hover);
+    }
+  }
+
+  &.x-small {
+    border-width: 2px;
+    box-shadow: 2px 2px 0 var(--outline);
+  }
+}
+
+/* Chips e tags quadrados */
+.chip,
+.tag:not(.token) {
+  border-radius: 0;
+  border: 2px solid var(--outline);
+  background: var(--color-background-card);
+  color: var(--color-text-emphasized);
+}
+
+.category-badge {
+  gap: 0.4rem !important;
+  font-family: var(--font-family-hud) !important;
+  font-size: 9px !important;
+  padding: 0.4rem 0.5rem !important;
+
+  &::before {
+    content: none !important;
+  }
+
+  img {
+    width: 14px;
+    height: 14px;
+  }
+}
+
+.chip-highlight {
+  font-family: var(--font-family-hud);
+  font-size: 10px;
+}
+
+/* Campos, código e citações sem cantos arredondados */
+input,
+pre,
+code,
+blockquote,
+.dropdown-results {
+  border-radius: 0 !important;
+}
+
+::selection {
+  background: var(--color-primary);
+  color: var(--color-text-button-hover);
+}
+}

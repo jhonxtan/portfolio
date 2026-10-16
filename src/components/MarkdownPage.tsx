@@ -1,5 +1,5 @@
 import { Hero } from './Hero'
-import { getPage } from '@/lib/posts'
+import { getPage } from '@/lib/content'
 
 // Página avulsa escrita em Markdown (content/pages/<name>.md)
 export async function MarkdownPage({ name }: { name: string }) {

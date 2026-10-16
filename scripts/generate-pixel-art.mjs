@@ -40,6 +40,10 @@ const palette = {
   H: '#777bb3', // roxo do PHP
   Q: '#21759b', // azul do WordPress
   X: '#3c57ae', // azul da PUC Goiás
+  // nuvens do céu noturno (pouco contraste com o fundo)
+  e: '#34346a', // nuvem
+  f: '#2a2a58', // sombra da nuvem
+  j: '#121226', // contorno e olhos da nuvem
 }
 
 function canvas(w, h) {
@@ -114,6 +118,31 @@ function ring(cv, cx, cy, a, b, color) {
     }
 }
 
+// Desenha uma forma num canvas temporário, contorna com `outline` e cola por cima de `cv`
+function shape(cv, draw, outline = 'k') {
+  const h = cv.grid.length
+  const w = cv.grid[0].length
+  const tmp = canvas(w, h)
+  draw(tmp)
+  // Lê de uma cópia para o contorno recém-marcado não contar como forma (senão ele se espalha)
+  const shapeGrid = tmp.grid.map((row) => [...row])
+  const filled = (x, y) => x >= 0 && y >= 0 && x < w && y < h && shapeGrid[y][x] !== '.'
+  for (let y = 0; y < h; y++)
+    for (let x = 0; x < w; x++)
+      if (!filled(x, y) && (filled(x - 1, y) || filled(x + 1, y) || filled(x, y - 1) || filled(x, y + 1)))
+        tmp.grid[y][x] = outline
+  for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) if (tmp.grid[y][x] !== '.') cv.px(x, y, tmp.grid[y][x])
+}
+
+// Elipse preenchida centrada em (cx, cy); `shade` pinta a parte de baixo com outra cor
+function blob(cv, cx, cy, a, b, fill, shade) {
+  for (let y = 0; y < cv.grid.length; y++)
+    for (let x = 0; x < cv.grid[0].length; x++) {
+      const v = ((x + 0.5 - cx) / a) ** 2 + ((y + 0.5 - cy) / b) ** 2
+      if (v <= 1) cv.px(x, y, shade && y + 0.5 > cy + b * 0.35 ? shade : fill)
+    }
+}
+
 function toSvg({ grid }) {
   const h = grid.length
   const w = grid[0].length
@@ -173,20 +202,141 @@ const drawings = {
     return cv
   },
 
-  // Estantes: livros na prateleira
-  'nav-shelves'() {
+  // Habilidades: caixa de ferramentas
+  'nav-skills'() {
     const cv = canvas(16, 16)
-    cv.rect(1, 4, 4, 10, 'b')
-    cv.hline(2, 3, 6, 'w')
-    cv.hline(2, 3, 11, 'B')
-    cv.rect(4, 2, 4, 12, 'r')
-    cv.hline(5, 6, 4, 'y')
-    cv.hline(5, 6, 10, 'R')
-    cv.rect(7, 5, 4, 9, 'n')
-    cv.hline(8, 9, 7, 'N')
-    cv.art(10, 3, ['..kk', '.kyk', '.kyk', 'kYk.', 'kYk.', 'kYk.', 'kYk.', 'kYk.', 'kYk.', 'kkk.'])
-    cv.rect(0, 13, 16, 3, 'm')
-    cv.hline(1, 14, 14, 'M')
+    cv.art(5, 2, ['kkkkkk', 'k....k', 'k....k'])
+    cv.rect(0, 5, 16, 10, 'O')
+    cv.hline(1, 14, 6, 'o')
+    cv.hline(0, 15, 9, 'k')
+    cv.rect(6, 8, 4, 3, 'y')
+    cv.hline(1, 14, 13, 'R')
+    return cv
+  },
+
+  // Conquistas: troféu
+  'nav-achievements'() {
+    const cv = canvas(16, 16)
+    cv.art(0, 0, [
+      '................',
+      '..kkkkkkkkkkkk..',
+      'kkkwyyyyyyyyYkkk',
+      'k.kwyyyyyyyyYk.k',
+      'k.kwyyyyyyyyYk.k',
+      'kkkyyyyyyyyyYkkk',
+      '..kyyyyyyyyyYk..',
+      '...kyyyyyyyYk...',
+      '....kyyyyyYk....',
+      '.....kkYYkk.....',
+      '......kYYk......',
+      '......kYYk......',
+      '....kkkkkkkk....',
+      '....kYyyyyYk....',
+      '...kkkkkkkkkk...',
+      '................',
+    ])
+    return cv
+  },
+
+  // Moeda (eventos e contador de conquistas)
+  coin() {
+    const cv = canvas(16, 16)
+    cv.art(0, 0, [
+      '................',
+      '.....kkkkkk.....',
+      '....kyyyyyyk....',
+      '...kywwyyyyYk...',
+      '...kywyyYyyYk...',
+      '...kywyyYyyYk...',
+      '...kyyyyYyyYk...',
+      '...kyyyyYyyYk...',
+      '...kyyyyYyyYk...',
+      '...kyyyyYyyYk...',
+      '...kyyyyYyyYk...',
+      '...kyyyyyyYYk...',
+      '....kyyyYYYk....',
+      '.....kkkkkk.....',
+      '................',
+      '................',
+    ])
+    return cv
+  },
+
+  // Bloco "?" (estudos de caso)
+  block() {
+    const cv = canvas(16, 16)
+    cv.art(0, 0, [
+      'kkkkkkkkkkkkkkkk',
+      'kwyyyyyyyyyyyyYk',
+      'kykyyyyyyyyyykYk',
+      'kyyyyywwwwyyyyYk',
+      'kyyyywwkkwwkyyYk',
+      'kyyyywwkywwkyyYk',
+      'kyyyyykkywwkyyYk',
+      'kyyyyyywwwkkyyYk',
+      'kyyyyyywwkkyyyYk',
+      'kyyyyyykkkyyyyYk',
+      'kyyyyyywwyyyyyYk',
+      'kyyyyyywwkyyyyYk',
+      'kyyyyyyykkyyyyYk',
+      'kykyyyyyyyyyykYk',
+      'kYYYYYYYYYYYYYYk',
+      'kkkkkkkkkkkkkkkk',
+    ])
+    return cv
+  },
+
+  // Bandeira de chegada (lançamentos)
+  flag() {
+    const cv = canvas(16, 16)
+    cv.art(0, 0, [
+      '..kkk...........',
+      '..kyk...........',
+      '..kkkkkkkkkk....',
+      '...kRrrrrrrrk...',
+      '...kRrrwwrrk....',
+      '...kRrrwwrk.....',
+      '...kRrrrrrrk....',
+      '...kRrrrrrrrk...',
+      '...kkkkkkkkkk...',
+      '...kGk..........',
+      '...kGk..........',
+      '...kGk..........',
+      '...kGk..........',
+      '.kkkkkkk........',
+      '.kNnnnNk........',
+      '.kkkkkkk........',
+    ])
+    return cv
+  },
+
+  // Nuvem com olhos, em tons de noite (fundo do site)
+  cloud() {
+    const cv = canvas(34, 18)
+    shape(
+      cv,
+      (t) => {
+        blob(t, 10, 11, 7, 5, 'e', 'f')
+        blob(t, 17, 8, 8, 7, 'e', 'f')
+        blob(t, 25, 11, 6, 5, 'e', 'f')
+      },
+      'j'
+    )
+    cv.vline(15, 6, 8, 'j')
+    cv.vline(19, 6, 8, 'j')
+    return cv
+  },
+
+  // Cenário: céu estrelado (fundo do site), repete nas duas direções
+  night() {
+    const cv = canvas(160, 160)
+    for (const [x, y] of [[9, 14], [70, 6], [131, 22], [38, 47], [101, 61], [150, 88], [17, 99], [62, 121], [118, 139], [84, 96], [44, 152], [143, 151]])
+      cv.px(x, y, 'G')
+    // estrela maior (brilho em cruz), só uma por bloco
+    for (const [x, y] of [[112, 32]]) {
+      cv.px(x, y, 'y')
+      for (const [dx, dy] of [[-1, 0], [1, 0], [0, -1], [0, 1]]) cv.px(x + dx, y + dy, 'Y')
+    }
     return cv
   },
 

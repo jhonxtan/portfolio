@@ -10,7 +10,6 @@ type HeroProps = {
   children?: ReactNode
   type?: 'page' | 'index' | 'post' | 'taxonomy'
   breadcrumb?: { value: string; label: string }
-  hasSearch?: boolean
   icon?: string
 }
 
@@ -23,11 +22,10 @@ export function Hero({
   children,
   type = 'page',
   breadcrumb,
-  hasSearch,
   icon,
 }: HeroProps) {
   return (
-    <header className={`hero hero-${type}`} style={hasSearch ? { marginBottom: '1.5rem' } : {}}>
+    <header className={`hero hero-${type}`}>
       {subTitle && (
         <div className="sub-title">
           {breadcrumb && (
@@ -49,7 +47,7 @@ export function Hero({
         </h1>
       )}
       {description && (
-        <div className="hero-description" style={hasSearch ? { marginBottom: '0' } : {}}>
+        <div className="hero-description">
           {description}
         </div>
       )}

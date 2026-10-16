@@ -2,7 +2,7 @@
 title: 'DashGLPI: um dashboard completo para o GLPI 11'
 description: Um plugin com indicadores em tempo real e gráficos interativos para acompanhar a operação de TI.
 date: 2026-08-12
-tags: [glpi, php, javascript, dashboard]
+category: projeto
 thumbnail: dashboard
 ---
 

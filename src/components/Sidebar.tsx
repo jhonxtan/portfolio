@@ -7,7 +7,6 @@ import { mainNavLinks, subNavLinks } from '@/data/navLinks'
 import { site } from '@/data/site'
 import { sidebarSocialLinks } from '@/data/socialLinks'
 import { isExternal } from '@/lib/helpers'
-import { ColorDropdown, ThemeToggle } from './ThemeControls'
 
 // Barra lateral (telas a partir de 1020px)
 export function Sidebar() {
@@ -23,10 +22,6 @@ export function Sidebar() {
             </span>
             <span className="site-name">{site.handle}</span>
           </Link>
-          <div className="flex-align-center">
-            <ColorDropdown />
-            <ThemeToggle withTooltip />
-          </div>
         </div>
       </section>
 

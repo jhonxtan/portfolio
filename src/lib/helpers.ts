@@ -7,7 +7,7 @@ export function slugify(value: string) {
     .replace(/(^-|-$)/g, '')
 }
 
-// "31 de março" (listas) ou "31 de março de 2026" (posts)
+// "31 de março" (listas) ou "31 de março de 2026" (páginas)
 export function formatDate(date: Date, withYear = false) {
   return date.toLocaleDateString('pt-BR', {
     timeZone: 'UTC',
@@ -17,7 +17,7 @@ export function formatDate(date: Date, withYear = false) {
   })
 }
 
-export function isNewPost(date: Date) {
+export function isNew(date: Date) {
   const diffDays = Math.floor(Math.abs(Date.now() - date.getTime()) / (1000 * 60 * 60 * 24))
   return diffDays < 50
 }

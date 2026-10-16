@@ -1,13 +1,5 @@
-import { site } from '@/data/site'
 import { footerLinks } from '@/data/socialLinks'
 import { isExternal } from '@/lib/helpers'
-import { GitHub, Heart, NextLogo, VercelLogo } from './icons'
-
-const madeWithLinks = [
-  { url: 'https://nextjs.org', label: 'Next.js', Logo: NextLogo },
-  { url: 'https://github.com', label: 'GitHub', Logo: () => <GitHub size={16} /> },
-  { url: 'https://vercel.com', label: 'Vercel', Logo: VercelLogo },
-]
 
 export function Footer() {
   return (
@@ -23,21 +15,6 @@ export function Footer() {
             >
               <link.Icon size={15} />
               {link.label}
-            </a>
-          ))}
-        </nav>
-        <nav className="footer-menu-buttons">
-          {madeWithLinks.map((link) => (
-            <a
-              href={link.url}
-              title={link.label}
-              target="_blank"
-              rel="noopener noreferrer"
-              key={link.url}
-              className="button small"
-            >
-              <link.Logo />
-              <span>{link.label}</span>
             </a>
           ))}
         </nav>

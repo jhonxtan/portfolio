@@ -1,23 +1,24 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
+import { CategoryBadge } from '@/components/Achievements'
 import { AuthorCard } from '@/components/AuthorCard'
 import { Comments } from '@/components/Comments'
 import { Hero } from '@/components/Hero'
 import { PostSidebar } from '@/components/PostSidebar'
 import { site } from '@/data/site'
-import { formatDate, slugify } from '@/lib/helpers'
-import { getPost, getPosts } from '@/lib/posts'
+import { formatDate } from '@/lib/helpers'
+import { getEntries, getEntry } from '@/lib/content'
 
-// Posts ficam na raiz do site (/meu-post), como no original
+// Conquistas e estudos de caso ficam na raiz do site (/minha-conquista)
 export const dynamicParams = false
 
 export async function generateStaticParams() {
-  return (await getPosts()).map((post) => ({ slug: post.slug }))
+  return (await getEntries()).map((entry) => ({ slug: entry.slug }))
 }
 
 export async function generateMetadata({ params }: PageProps<'/[slug]'>): Promise<Metadata> {
-  const post = await getPost((await params).slug)
+  const post = await getEntry((await params).slug)
   if (!post) return {}
   return {
     title: post.title,
@@ -27,10 +28,11 @@ export async function generateMetadata({ params }: PageProps<'/[slug]'>): Promis
 }
 
 export default async function PostPage({ params }: PageProps<'/[slug]'>) {
-  const post = await getPost((await params).slug)
+  const post = await getEntry((await params).slug)
   if (!post) notFound()
 
-  const { title, date, tags, previous, next } = post
+  const { title, date, category, previous, next } = post
+  const isCase = category === 'projeto'
   const showComments = Boolean(site.commentsRepo) && !post.commentsOff
 
   return (
@@ -54,15 +56,9 @@ export default async function PostPage({ params }: PageProps<'/[slug]'>) {
             </div>
           }
         >
-          {tags.length > 0 && (
-            <div className="tags">
-              {tags.map((tag) => (
-                <Link key={tag} href={`/topics/${slugify(tag)}`} className="tag">
-                  {tag}
-                </Link>
-              ))}
-            </div>
-          )}
+          <div className="tags">
+            <CategoryBadge category={category} />
+          </div>
         </Hero>
 
         <div
@@ -72,16 +68,16 @@ export default async function PostPage({ params }: PageProps<'/[slug]'>) {
         />
 
         {(previous || next) && (
-          <nav className="post-navigation" aria-label="Mais posts">
+          <nav className="post-navigation" aria-label={isCase ? 'Mais estudos de caso' : 'Mais conquistas'}>
             {previous && (
               <Link href={`/${previous.slug}`} rel="prev" className="post-navigation-link">
-                <span className="small">&larr; Post anterior</span>
+                <span className="small">&larr; Anterior</span>
                 {previous.title}
               </Link>
             )}
             {next && (
               <Link href={`/${next.slug}`} rel="next" className="post-navigation-link post-navigation-next">
-                <span className="small">Próximo post &rarr;</span>
+                <span className="small">Próxima &rarr;</span>
                 {next.title}
               </Link>
             )}

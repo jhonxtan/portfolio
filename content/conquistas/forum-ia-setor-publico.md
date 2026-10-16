@@ -2,7 +2,7 @@
 title: Fórum IA no Setor Público
 description: Um encontro sobre como aplicar inteligência artificial de forma responsável na gestão pública.
 date: 2026-09-02
-tags: [ia, gestão pública, eventos]
+category: evento
 thumbnail: chat
 ---
 

@@ -2,9 +2,8 @@
 title: Certificado Profissional Google UX Design
 description: Por que um desenvolvedor estudou UX, e o que isso muda no código.
 date: 2026-10-01
-tags: [ux, design, certificados]
+category: certificado
 thumbnail: ux-design
-series: Certificações
 ---
 
 Mais uma etapa vencida: concluí o **Certificado Profissional de Google UX Design**! 🚀

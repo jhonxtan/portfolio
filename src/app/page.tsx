@@ -1,19 +1,16 @@
 import Link from 'next/link'
+import { Achievements } from '@/components/Achievements'
 import { Heading } from '@/components/Heading'
 import { Hero } from '@/components/Hero'
-import { Post } from '@/components/Post'
-import { Posts } from '@/components/Posts'
 import { ProjectHighlights } from '@/components/Projects'
 import { projectsList } from '@/data/projectsList'
-import { seriesList } from '@/data/seriesList'
-import { shelvesList } from '@/data/shelvesList'
+import { skillsList } from '@/data/skillsList'
 import { site } from '@/data/site'
+import { getAchievements } from '@/lib/content'
 import { slugify } from '@/lib/helpers'
-import { getPosts, toListItem } from '@/lib/posts'
 
 export default async function Index() {
-  const posts = await getPosts()
-  const latest = posts.slice(0, 4).map(toListItem)
+  const latest = (await getAchievements()).slice(0, 3)
 
   return (
     <main className="main-content page">
@@ -59,59 +56,41 @@ export default async function Index() {
               <Link href="/me">Também</Link>: interessado em automações com inteligência artificial aplicada à gestão pública e em UX Design.
             </p>
           </div>
-          <div className="hero-image-container">
-            <img src="/images/mascot.svg" className="hero-image" alt="Robô mascote" />
-            {/* <aside className="hero-bubble">
-              Não lembra como se escreve meu nome? É só ir em <a href={site.url}>{site.handle}</a>!
-            </aside> */}
-          </div>
         </div>
       </Hero>
 
-      {/* <section className="section-index">
-        <Heading title="Últimos" slug="/blog" buttonText="Todos os posts" />
-        <Posts data={latest} detailed />
-      </section> */}
-
       <section className="section-index">
         <Heading
-          title="Estantes"
-          slug="/shelves"
-          buttonText="Todas as estantes"
-          description="Caminhos escolhidos a dedo por tudo o que já escrevi."
+          title="Habilidades"
+          slug="/skills"
+          buttonText="Ver tudo"
+          description="Tecnologias, certificados e formação."
+          icon="/images/nav-skills.svg"
         />
         <div className="cards cards-half">
-          {shelvesList.map((shelf) => (
-            <Link className="card card-highlight card-shelf" href={`/shelves#${slugify(shelf.title)}`} key={shelf.title}>
+          {skillsList.map((group) => (
+            <Link className="card card-highlight card-skill" href={`/skills#${slugify(group.title)}`} key={group.title}>
               <div className="flex-space-between">
-                <div className="card-title">{shelf.title}</div>
+                <div className="card-title">{group.title}</div>
                 <div className="chip">
-                  <span className="chip-highlight">{shelf.links.length}</span>
+                  <span className="chip-highlight">{group.items.length}</span>
                 </div>
               </div>
-              <p>{shelf.description}</p>
+              <p>{group.description}</p>
             </Link>
           ))}
         </div>
       </section>
 
-      {/* <section className="section-index">
-        <Heading title="Séries" description="Alguns assuntos renderam vários capítulos." />
-        <div className="posts">
-          {seriesList.map((series) => (
-            <Post
-              key={series.slug}
-              detailed
-              node={{
-                slug: `/series/${series.slug}`,
-                title: series.title,
-                thumbnail: series.icon,
-                description: series.description,
-              }}
-            />
-          ))}
-        </div>
-      </section> */}
+      <section className="section-index">
+        <Heading
+          title="Últimas conquistas"
+          slug="/achievements"
+          buttonText="Todas as conquistas"
+          icon="/images/nav-achievements.svg"
+        />
+        <Achievements entries={latest} />
+      </section>
 
       <section>
         <Heading

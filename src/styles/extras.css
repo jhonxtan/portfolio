@@ -1,6 +1,23 @@
 /* Ajustes deste projeto que não existem no CSS original */
 
 @layer components {
+/*
+ * Cores do tema "Pixel World" (só modo noite). O fundo e os componentes ficam em src/styles/pixel-world.css.
+ */
+:root {
+  /* Cor de destaque (links, botões, item ativo do menu) */
+  --color-primary: #ff6b5a;
+
+  /* Escuros: azul-marinho de fase de castelo */
+  --gray-6: #4a4a78;
+  --gray-7: #34345e;
+  --gray-8: #282850;
+  --gray-9: #1c1c3a;
+  --gray-10: #171730;
+  --gray-11: #121226;
+  --gray-12: #0b0b1a;
+}
+
 /* Pixel art: mantém os pixels nítidos ao redimensionar */
 img[src$='.svg'] {
   image-rendering: pixelated;
@@ -49,8 +66,8 @@ a.anchor:focus-visible {
   }
 }
 
-/* Itens de estante sem link (ex.: Conhecimentos): mesmo visual do a.post, sem efeito de hover */
-.shelf div.post {
+/* Itens de habilidade sem link (ex.: Tecnologias): mesmo visual do a.post, sem efeito de hover */
+.skill-list div.post {
   display: flex;
   align-items: baseline;
   width: fit-content;
@@ -73,7 +90,7 @@ a.anchor:focus-visible {
 }
 
 @media screen and (min-width: 800px) {
-  .shelf div.post {
+  .skill-list div.post {
     margin-bottom: 0;
     margin-inline: -0.625rem;
     padding: 5px 0.625rem;

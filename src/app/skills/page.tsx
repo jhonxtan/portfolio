@@ -2,26 +2,26 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { Heading } from '@/components/Heading'
 import { Hero } from '@/components/Hero'
-import { shelvesList } from '@/data/shelvesList'
+import { skillsList } from '@/data/skillsList'
 import { slugify } from '@/lib/helpers'
-import { getPosts } from '@/lib/posts'
+import { getEntries } from '@/lib/content'
 
-const title = 'Estantes'
-const description = 'Uma seleção de tutoriais, referências e mergulhos profundos.'
+const title = 'Habilidades'
+const description = 'Tecnologias, certificados e formação.'
 
 export const metadata: Metadata = { title, description }
 
-export default async function ShelvesPage() {
-  const postsBySlug = new Map((await getPosts()).map((post) => [post.slug, post]))
+export default async function SkillsPage() {
+  const entriesBySlug = new Map((await getEntries()).map((entry) => [entry.slug, entry]))
 
   return (
     <main className="main-content page">
-      <Hero title={title} icon="/images/nav-shelves.svg" />
-      {shelvesList.map((shelf) => (
-        <section className="section-index" id={slugify(shelf.title)} key={shelf.title}>
-          <Heading title={shelf.title} description={shelf.description} />
-          <div className="posts shelf">
-            {shelf.links.map((link) => {
+      <Hero title={title} description={description} icon="/images/nav-skills.svg" />
+      {skillsList.map((group) => (
+        <section className="section-index" id={slugify(group.title)} key={group.title}>
+          <Heading title={group.title} description={group.description} />
+          <div className="posts skill-list">
+            {group.items.map((link) => {
               if ('url' in link) {
                 return (
                   <a className="post" href={link.url} target="_blank" rel="noreferrer" key={link.title}>
@@ -42,7 +42,7 @@ export default async function ShelvesPage() {
                   </div>
                 )
               }
-              const post = postsBySlug.get(link.slug.replace(/^\//, ''))
+              const post = entriesBySlug.get(link.slug.replace(/^\//, ''))
               return (
                 <Link className="post" href={link.slug} key={link.slug}>
                   <div>

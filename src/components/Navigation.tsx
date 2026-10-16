@@ -6,7 +6,6 @@ import { useState } from 'react'
 import { mainNavLinks as links } from '@/data/navLinks'
 import { githubUrl, site } from '@/data/site'
 import { Close, GitHub, Menu } from './icons'
-import { ColorDropdown, ThemeToggle } from './ThemeControls'
 
 // Barra superior (telas menores que 1020px)
 export function Navigation() {
@@ -49,8 +48,6 @@ export function Navigation() {
             ))}
           </nav>
           <nav className="navbar-menu social">
-            <ThemeToggle />
-            <ColorDropdown />
             <a
               href={githubUrl}
               className="social-icon navbar-icon flex-align-center"
